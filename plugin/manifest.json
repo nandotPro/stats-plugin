@@ -1,0 +1,19 @@
+{
+  "name": "Angular plugin example",
+  "version": "1.0.0",
+  "description": "Angular plugin example",
+  "author": {
+    "name": "xCally",
+    "email": "support@xcally.com",
+    "website": "https://www.xcally.com"
+  },
+  "type": "script",
+  "sidebar": "always",
+  "parameters": {
+    "scriptName": "angular_plugin",
+    "scriptPath": "server/app.js",
+    "views": {
+      "admin": "client/index.html"
+    }
+  }
+}

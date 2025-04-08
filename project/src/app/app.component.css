@@ -1,0 +1,16 @@
+.mat-column-id {
+  width: 100px;
+}
+
+.mat-column-name {
+  width: 500px;
+}
+
+.mat-column-email {
+  width: 500px;
+}
+
+.debug {
+  white-space: nowrap;
+  padding: 10px;
+}

@@ -1,0 +1,33 @@
+{
+  "name": "sample-script-plugin",
+  "version": "1.0.0",
+  "description": "xCALLY Motion Sample Script Plugin",
+  "main": "server/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "xcally",
+    "motion"
+  ],
+  "author": "xcally",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "dependencies": {
+    "@logdna/tail-file": "^4.0.2",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "fs-extra": "^6.0.1",
+    "lodash": "^4.17.4",
+    "path": "^0.12.7",
+    "socket.io": "^4.8.1",
+    "util": "^0.11.0"
+  }
+}
