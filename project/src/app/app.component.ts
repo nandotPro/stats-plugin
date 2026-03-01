@@ -12,7 +12,7 @@ import { startWith, switchMap } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
   public agents: MatTableDataSource<agent>;
-  public displayedColumns = ["id", "name", "status", "time"];
+  public displayedColumns = ["id", "name", "accountCode", "status", "time"];
   title = 'Agent Presence';
 
   constructor(private _apiService: ApiService) {

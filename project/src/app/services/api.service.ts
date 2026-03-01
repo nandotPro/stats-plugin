@@ -91,6 +91,7 @@ export class ApiService {
               return {
                 id: a.id,
                 name: a.fullname || a.name,
+                accountCode: a.accountcode ?? a.id,
                 status,
                 time: `${hours}:${minutes}:${seconds}`
               } as agent;
