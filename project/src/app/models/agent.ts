@@ -1,6 +1,6 @@
-export interface agent
-{
+export interface agent {
   id: number;
   name: string;
-  email: string;
+  status: string;
+  time: string; // HH:MM:SS
 }

@@ -1,9 +1,10 @@
 {
-  "name": "sample-script-plugin",
+  "name": "agent-presence-plugin",
   "version": "1.0.0",
-  "description": "xCALLY Motion Sample Script Plugin",
+  "description": "xCALLY Motion Agent Presence Plugin",
   "main": "server/app.js",
   "scripts": {
+    "start": "node server/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -12,7 +13,8 @@
   },
   "keywords": [
     "xcally",
-    "motion"
+    "motion",
+    "agent-presence"
   ],
   "author": "xcally",
   "license": "ISC",
@@ -21,13 +23,8 @@
   },
   "homepage": "",
   "dependencies": {
-    "@logdna/tail-file": "^4.0.2",
     "body-parser": "^1.15.2",
-    "express": "^4.14.0",
-    "fs-extra": "^6.0.1",
-    "lodash": "^4.17.4",
-    "path": "^0.12.7",
-    "socket.io": "^4.8.1",
-    "util": "^0.11.0"
+    "cors": "^2.8.5",
+    "express": "^4.14.0"
   }
 }

@@ -1,7 +1,5 @@
 {
-  "title": "Angular plugin",
-  "description": "",
-  "fileToMonitor": "/home/paolo/Development/motion-server-v3/logs/api-combined.2025-04-08.log",
-  "expressPort": 3125,
-  "socketIoPort": 3200
+  "title": "Agent Presence Plugin",
+  "description": "Shows online agents, status and duration",
+  "expressPort": 3125
 }

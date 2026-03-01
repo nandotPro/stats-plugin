@@ -34,33 +34,88 @@ export class ApiService {
       .pipe(catchError(error => this.handleError(error)));
   }
 
-  public whoAmI(): Observable<agent>
-  {
-    return this.get('/api/users/whoami')
-      .pipe(map(
-        res => {
-          return res;
-        }
-      ));
-  }
+  public getAgentPresence(): Observable<agent[]> {
+    return this.get('/api/rpc/agents')
+      .pipe(
+        map((res: any) => {
+          const now = Date.now();
+          let agents: any[] = [];
 
-  public getAllAgents(): Observable<agent[]>
-  {
-    return this.get('/api/users?nolimit=true&sort=id&role=agent')
-      .pipe(map(
-        res => {
-          return res.rows;
-        }
-      ));
-  }
+          if (Array.isArray(res)) {
+            agents = res;
+          } else if (Array.isArray(res?.result)) {
+            agents = res.result;
+          } else if (Array.isArray(res?.rows)) {
+            agents = res.rows;
+          } else if (Array.isArray(res?.data)) {
+            agents = res.data;
+          } else if (res && typeof res === 'object') {
+            agents = [res];
+          }
 
-  public getPluginApi(url: string, port: number): Observable<any>
-  {
-    return this.get(`/api/plugins/webhook?port=${port}&path=${url}`)
-      .pipe(map(
-        res => {
-          return res;
-        }
-      ));
+          const rows: agent[] = agents
+            .map((a: any) => {
+              const since = a.voiceStatusTime || a.stateTime || now;
+              const diff = Math.max(0, now - since);
+
+              let status = 'Online';
+
+              if (a.online === false) {
+                status = 'Offline';
+              } else if (
+                a.voicePause ||
+                a.chatPause ||
+                a.mailPause ||
+                a.smsPause ||
+                a.whatsappPause ||
+                a.openchannelPause
+              ) {
+                status = 'Pause';
+              } else if (
+                a.busy ||
+                a.voiceStatus !== 'idle' ||
+                a.chatStatus !== 'idle' ||
+                a.mailStatus !== 'idle' ||
+                a.smsStatus !== 'idle' ||
+                a.whatsappStatus !== 'idle' ||
+                a.openchannelStatus !== 'idle'
+              ) {
+                status = 'Busy';
+              }
+
+              const totalSeconds = Math.floor(diff / 1000);
+              const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+              const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+              const seconds = String(totalSeconds % 60).padStart(2, '0');
+
+              return {
+                id: a.id,
+                name: a.fullname || a.name,
+                status,
+                time: `${hours}:${minutes}:${seconds}`
+              } as agent;
+            });
+
+          const statusOrder: { [key: string]: number } = {
+            'Online': 0,
+            'Busy': 1,
+            'Pause': 2,
+            'Offline': 3
+          };
+
+          rows.sort((a, b) => {
+            const sa = statusOrder[a.status] ?? 99;
+            const sb = statusOrder[b.status] ?? 99;
+
+            if (sa !== sb) {
+              return sa - sb;
+            }
+
+            return a.name.localeCompare(b.name);
+          });
+
+          return rows;
+        })
+      );
   }
 }
