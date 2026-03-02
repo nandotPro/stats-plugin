@@ -12,6 +12,8 @@ import { startWith, switchMap } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
   public agents: MatTableDataSource<agent>;
+  public allAgents: agent[] = [];
+  public showOffline = true;
   public displayedColumns = ["id", "name", "accountCode", "status", "time"];
   title = 'Agent Presence';
 
@@ -26,7 +28,22 @@ export class AppComponent implements OnInit {
         switchMap(() => this._apiService.getAgentPresence())
       )
       .subscribe(rows => {
-        this.agents.data = rows;
+        this.allAgents = rows;
+        this.applyFilters();
       });
+  }
+
+  applyFilters(): void {
+    const filtered = this.showOffline
+      ? this.allAgents
+      : this.allAgents.filter(a => a.status !== 'Offline');
+
+    this.agents.data = filtered;
+  }
+
+  onShowOfflineChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.showOffline = !!input?.checked;
+    this.applyFilters();
   }
 }

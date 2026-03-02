@@ -4,6 +4,16 @@
     List of agents with current status and time spent in that status.
   </p>
 
+  <div class="filters">
+    <label>
+      <input
+        type="checkbox"
+        [checked]="showOffline"
+        (change)="onShowOfflineChange($event)" />
+      Show offline agents
+    </label>
+  </div>
+
   <table mat-table [dataSource]="agents" class="mat-elevation-z2 presence-table">
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef>Agent ID</th>
