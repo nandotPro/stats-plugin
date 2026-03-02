@@ -97,24 +97,6 @@ export class ApiService {
               } as agent;
             });
 
-          const statusOrder: { [key: string]: number } = {
-            'Online': 0,
-            'Busy': 1,
-            'Pause': 2,
-            'Offline': 3
-          };
-
-          rows.sort((a, b) => {
-            const sa = statusOrder[a.status] ?? 99;
-            const sb = statusOrder[b.status] ?? 99;
-
-            if (sa !== sb) {
-              return sa - sb;
-            }
-
-            return a.name.localeCompare(b.name);
-          });
-
           return rows;
         })
       );

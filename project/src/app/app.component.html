@@ -5,13 +5,20 @@
   </p>
 
   <div class="filters">
-    <label>
+    <label class="filter-item">
       <input
         type="checkbox"
         [checked]="showOffline"
         (change)="onShowOfflineChange($event)" />
       Show offline agents
     </label>
+
+    <button type="button" class="filter-item status-sort-button" (click)="onStatusSortToggle()">
+      Status order:
+      <span *ngIf="statusSortMode === 'default'">Default</span>
+      <span *ngIf="statusSortMode === 'busyFirst'">Busy first</span>
+      <span *ngIf="statusSortMode === 'pauseFirst'">Pause first</span>
+    </button>
   </div>
 
   <table mat-table [dataSource]="agents" class="mat-elevation-z2 presence-table">
@@ -31,7 +38,9 @@
     </ng-container>
 
     <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <th mat-header-cell *matHeaderCellDef>
+        Status
+      </th>
       <td mat-cell *matCellDef="let agent"> {{ agent.status }} </td>
     </ng-container>
 
