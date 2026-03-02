@@ -9,11 +9,13 @@
   },
   "type": "script",
   "sidebar": "always",
+  "icon": "icon-apps",
   "parameters": {
     "scriptName": "angular_plugin",
     "scriptPath": "server/app.js",
     "views": {
-      "admin": "client/index.html"
+      "admin": "client/index.html",
+      "agent": "client/index.html"
     }
   }
 }
