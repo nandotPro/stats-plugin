@@ -10,6 +10,52 @@
   color: #666;
 }
 
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.filter-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #444;
+}
+
+.filter-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.status-sort-button {
+  padding: 4px 10px;
+  border-radius: 16px;
+  border: 1px solid #ccc;
+  background: linear-gradient(135deg, #fafafa, #f0f0f0);
+  cursor: pointer;
+  font-size: 12px;
+  color: #333;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: background 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.status-sort-button:hover {
+  background: linear-gradient(135deg, #ffffff, #f5f5f5);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-color: #999;
+}
+
+.status-sort-button:active {
+  background: #e0e0e0;
+  box-shadow: none;
+}
+
 .presence-table {
   width: 100%;
 }
