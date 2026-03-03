@@ -5,14 +5,6 @@
   </p>
 
   <div class="filters">
-    <label class="filter-item">
-      <input
-        type="checkbox"
-        [checked]="showOffline"
-        (change)="onShowOfflineChange($event)" />
-      Show offline agents
-    </label>
-
     <button type="button" class="filter-item status-sort-button" (click)="onStatusSortToggle()">
       Status order:
       <span *ngIf="statusSortMode === 'default'">Default</span>
@@ -56,4 +48,11 @@
       [ngClass]="'status-' + row.status.toLowerCase()">
     </tr>
   </table>
+
+  <mat-paginator
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[10, 20, 50, 100]"
+    showFirstLastButtons
+    aria-label="Paginate agents">
+  </mat-paginator>
 </div>

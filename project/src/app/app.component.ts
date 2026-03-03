@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from "@angular/material/table";
 import { agent } from './models/agent';
 import { ApiService } from "./services/api.service";
@@ -10,12 +11,13 @@ import { startWith, switchMap } from 'rxjs/operators';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   public agents: MatTableDataSource<agent>;
   public allAgents: agent[] = [];
-  public showOffline = true;
   public statusSortMode: 'default' | 'busyFirst' | 'pauseFirst' = 'default';
   public displayedColumns = ["id", "name", "accountCode", "status", "time"];
+  readonly pageSize = 20;
   title = 'Agent Presence';
 
   constructor(private _apiService: ApiService) {
@@ -34,10 +36,14 @@ export class AppComponent implements OnInit {
       });
   }
 
+  ngAfterViewInit(): void {
+    if (this.paginator) {
+      this.agents.paginator = this.paginator;
+    }
+  }
+
   applyFilters(): void {
-    let filtered = this.showOffline
-      ? this.allAgents
-      : this.allAgents.filter(a => a.status !== 'Offline');
+    const filtered = this.allAgents.filter(a => a.status !== 'Offline');
 
     const statusOrderDefault: { [key: string]: number } = {
       'Online': 0,
@@ -79,12 +85,6 @@ export class AppComponent implements OnInit {
     });
 
     this.agents.data = sorted;
-  }
-
-  onShowOfflineChange(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    this.showOffline = !!input?.checked;
-    this.applyFilters();
   }
 
   onStatusSortToggle(): void {
